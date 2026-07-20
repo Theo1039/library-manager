@@ -7,7 +7,7 @@ def mark_as_read(library):
                  'title', 'author', 'year', 'genre', 'read' (bool), 'rating' (int 0-5).
     """
 
-    #2 Checks if library is empty
+    #2 Checks if the library is empty
     if len(library) == 0:
         print("📭 Your library is empty! Add some books first.")
         return
