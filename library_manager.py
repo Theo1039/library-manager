@@ -1,5 +1,5 @@
 import json
-import random
+from book_adder import add_book
 
 Library_file = "library.json" # this acts as storage for library data (library and wishlist)
 
@@ -32,59 +32,6 @@ def save_library(library: list, wishlist: list) -> None:
         #json.dump saves the current state of the library and wishlist to library_file
         json.dump(save_data, file, indent=4)
 
-
-def add_book(library: list):
-    """Ask the user for book details and append a dict to the library list."""
-    # TODO: Ask for title, author, year (convert to int), read status (y/n)
-    # Append {"title": ..., "author": ..., "year": ..., "read": ..., "rating": 0}
-    pass
-
-
-def display_books(library: list):
-    """Print all books in a nice format."""
-    # TODO: Loop through library with enumerate() and print each book
-    # If library is empty, print "Your library is empty!"
-    pass
-
-
-def mark_as_read(library: list): list:
-    """Let the user pick a book by number and mark it as read + add a rating."""
-    # TODO: Display books, ask for book number, set read=True, ask for rating 1-5
-    pass
-
-
-def search_books(library: list):
-    """Search for books by title or author."""
-    # TODO: Ask for a search term, loop through books, print matches
-    # Hint: use .lower() for case-insensitive search
-    pass
-
-
-def show_statistics(library: list):
-    """Show total books, percentage read, and average rating."""
-    # TODO: Calculate and print stats
-    pass
-
-
-def random_recommendation(library: list):
-    """Pick and display a random unread book."""
-    # TODO: Filter unread books, use random.choice() to recommend one
-    pass
-
-
-def delete_book(library: list):
-    """Remove a book from the library by its number."""
-    # TODO: Display books, ask for number, pop() from list
-    pass
-
-def import_books(library: list, filename: str = 'books.csv'):
-    pass
-
-def export_books(library: list, filename: str = 'library_exporter.csv'):
-    pass
-
-def wishlist_menu(library: list, wishlist: list):
-    pass
 
 def print_menu():
     print("\n" + "=" * 40)
