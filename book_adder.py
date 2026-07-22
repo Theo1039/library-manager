@@ -1,8 +1,8 @@
 
 
-library = []
+# library = []
 
-def add_book(library):
+def add_book(library: list):
     title = input("The name of the book is: ").strip().title()
     author = input("The author of the book is: ").strip().title()
     year = int(input("It was produced in : "))
@@ -21,4 +21,4 @@ def add_book(library):
 
     print(f"`{title}` by `{author}` has been succesfully added")
 
-add_book(library)
+# add_book(library)
