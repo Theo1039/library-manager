@@ -1,5 +1,5 @@
 #1 book_marker.py - Role 4: The Read-Tracker
-def mark_as_read(library):
+def mark_as_read(library: list):
     """Let's the user pick a book, mark it as read, and rate it 1-5 stars.
 
     Args:
