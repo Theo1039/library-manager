@@ -1,6 +1,6 @@
 def export_books(library: list, filename: str = "library_export.csv"):
     if not library:
-        print("You entered an empty library. Provide a valid library")
+        print("You entered an empty library. Add books to library first")
         return
 
     with open(filename, "w") as f:
