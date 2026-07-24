@@ -27,12 +27,14 @@ def random_recommendation(library: list)-> None:
 library = [{"title": "Dune",
        "author": "Frank Herbert",
        "year": 1965,
+       "Genre": "fiction",
        "read": False
          },
        {
         "title": "Atomic Habits",
          "author": "James Clear",
           "year": 2018,
+          "Genre": "fiction",
          "read": True
 
         },
@@ -40,6 +42,7 @@ library = [{"title": "Dune",
          "title": "The Hobbit",
            "author": "J.R.R.Tolkien",
             "year": 1937,
+            "Genre": "fiction",
              "read": False
         }
 ]
