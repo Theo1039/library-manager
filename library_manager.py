@@ -1,5 +1,6 @@
 import json
 from book_adder import add_book
+from book_marker import mark_as_read
 
 Library_file = "library.json" # this acts as storage for library data (library and wishlist)
 
