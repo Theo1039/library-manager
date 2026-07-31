@@ -4,13 +4,13 @@
 from __future__ import annotations
 import csv                          # Reads and writes CSV data files
 from pathlib import Path            # Simplifies working with file and folder paths
-from tkinter import Tk, filedialog  # Opens popup windows to browse and select files
 
 
 #Connects Python to the computer's built-in window system.
 #This opens a file selection window that works on any computer.
 
 def choose_csv_files(multiple: bool = True) -> list[str]:
+    from tkinter import Tk, filedialog # Opens popup windows to browse and select files
     """
     Opens the OS file picker so the user can select one or more CSV files.
     Returns a list of selected file paths (empty list if canceled).
