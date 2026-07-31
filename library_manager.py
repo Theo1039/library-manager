@@ -4,6 +4,7 @@ from book_deleter import delete_book
 from book_marker import mark_as_read
 from csv_exporter import export_books
 from csv_importer import import_books_csv, choose_csv_files, import_books_from_files
+from book_search import booksearch
 
 Library_file = "library.json" # this acts as storage for library data (library and wishlist)
 
@@ -68,7 +69,7 @@ def main():
         elif choice == "2":
             display_books(library)
         elif choice == "3":
-            search_books(library)
+            booksearch(library)
         elif choice == "4":
             mark_as_read(library)
         elif choice == "5":
