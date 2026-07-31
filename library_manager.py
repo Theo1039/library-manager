@@ -1,5 +1,6 @@
 import json
 from book_adder import add_book
+from book_deleter import delete_book
 from book_marker import mark_as_read
 from csv_exporter import export_books
 from csv_importer import import_books_csv, choose_csv_files, import_books_from_files

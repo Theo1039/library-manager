@@ -1,6 +1,6 @@
 
 # function to delete a book from the library
-def delete_book(library: list) -> None:
+def delete_book(library):
     
     #check if the library is empty
     if len(library) == 0:
@@ -20,8 +20,7 @@ def delete_book(library: list) -> None:
             # check if the number is valid
             if choice < 1 or choice > len(library):
                 print("Invalid book number. Try again.")
-            else: 
-                break
+            else: break
 
         except ValueError:
             print("Please enter a number only.")
@@ -33,14 +32,15 @@ def delete_book(library: list) -> None:
     confirm = input(f"Are you sure you want to delete'{library[index]}'? (y/n): ")
 
     if confirm.lower() == "y":
-           deleted_book = library.pop(index)
-           print(f"'{deleted_book}' has been deleted successfully!")
-    elif confirm == "n":
-            print("Deletion cancelled.")
+           library.pop(index)
+           print("Book deleted successfully!")
     else:
-         print("invalid input. Please enter only 'y' or 'n'.")
+            print("Deletion cancelled.")
 
-         
+    # Example library
+library = []
+
+    # call the function
 delete_book(library)
 
     #show updated library
