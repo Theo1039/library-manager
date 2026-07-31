@@ -10,31 +10,48 @@ from pathlib import Path            # Simplifies working with file and folder pa
 #This opens a file selection window that works on any computer.
 
 def choose_csv_files(multiple: bool = True) -> list[str]:
-    from tkinter import Tk, filedialog # Opens popup windows to browse and select files
     """
     Opens the OS file picker so the user can select one or more CSV files.
     Returns a list of selected file paths (empty list if canceled).
+
+    If tkinter is unavailable, falls back to manual file path entry.
     """
-    root = Tk()
-    root.withdraw()
-    root.update()
+    try:
+        from tkinter import Tk, filedialog
 
-    filetypes = [("CSV files", "*.csv")]
+        root = Tk()
+        root.withdraw()
+        root.update()
 
-    if multiple:
-        paths = filedialog.askopenfilenames(
-            title="Select CSV file(s) to import",
-            filetypes=filetypes
-        )
-    else:
-        single = filedialog.askopenfilename(
-            title="Select a CSV file to import",
-            filetypes=filetypes
-        )
-        paths = (single,) if single else ()
+        filetypes = [("CSV files", "*.csv")]
 
-    root.destroy()
-    return list(paths)
+        if multiple:
+            paths = filedialog.askopenfilenames(
+                title="Select CSV file(s) to import",
+                filetypes=filetypes
+            )
+        else:
+            single = filedialog.askopenfilename(
+                title="Select a CSV file to import",
+                filetypes=filetypes
+            )
+            paths = (single,) if single else ()
+
+        root.destroy()
+        return list(paths)
+
+    except Exception:
+        print("\n⚠️ Graphical file picker is unavailable.")
+        print("Please enter the full path(s) to your CSV file(s).")
+
+        if multiple:
+            raw = input("CSV file paths (comma separated): ").strip()
+            if not raw:
+                return []
+            return [p.strip().strip('"').strip("'") for p in raw.split(",") if p.strip()]
+        else:
+            path = input("CSV file path: ").strip().strip('"').strip("'")
+            return [path] if path else []
 
 
 #Loads files from the computer hard drive directly into memory.
@@ -115,8 +132,13 @@ def import_books_from_files(
             print(f"❌ Error importing from '{path}': {e}")
             continue
 
-        print(f"📥 Imported {imported_count} book(s) from {path.name}!"
-              + (f" (skipped {skipped_count} duplicate(s))" if skip_duplicates else ""))
+        print(
+            f"📥 Imported {imported_count} book(s) from {path.name}!"
+            + (
+                f" (skipped {skipped_count} duplicate(s))"
+                if skip_duplicates else ""
+            )
+        )
 
         total_imported += imported_count
         total_skipped += skipped_count
@@ -129,15 +151,27 @@ def import_books_from_files(
 
 #Connects the user interface buttons to the main program logic.
 #This is the main function that takes the chosen files and imports the books.
-def import_books_csv(library: list, skip_duplicates: bool = True, multiple: bool = True) -> None:
+def import_books_csv(
+    library: list,
+    skip_duplicates: bool = True,
+    multiple: bool = True
+) -> None:
     """
     User picks CSV file(s) via file explorer, then import into `library`.
     """
     file_paths = choose_csv_files(multiple=multiple)
-    import_books_from_files(library, file_paths, skip_duplicates=skip_duplicates)
+    import_books_from_files(
+        library,
+        file_paths,
+        skip_duplicates=skip_duplicates
+    )
 
 
 if __name__ == "__main__":
     library: list = []
-    import_books_csv(library, skip_duplicates=True, multiple=True)
+    import_books_csv(
+        library,
+        skip_duplicates=True,
+        multiple=True
+    )
     print(f"Imported {len(library)} book(s).")
