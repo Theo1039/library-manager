@@ -2,6 +2,7 @@ import json
 from book_adder import add_book
 from book_marker import mark_as_read
 from csv_exporter import export_books
+from csv_importer import import_books_csv
 
 Library_file = "library.json" # this acts as storage for library data (library and wishlist)
 
@@ -76,7 +77,7 @@ def main():
         elif choice == "7":
             random_recommendation(library)
         elif choice == "8":
-            import_books(library)
+            import_books_csv(library)
         elif choice == "9":
             export_books(library)
         elif choice == "10":
