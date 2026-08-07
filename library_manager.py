@@ -8,6 +8,7 @@ from book_search import booksearch
 from book_statistics import show_statistics
 from wishlist import wishlist_menu
 from recommendation import random_recommendation
+from book_display import display_books
 
 Library_file = "library.json" # this acts as storage for library data (library and wishlist)
 
@@ -70,8 +71,7 @@ def main():
         if choice == "1":
             add_book(library)
         elif choice == "2":
-            pass
-            # display_books(library)
+            display_books(library)
         elif choice == "3":
             booksearch(library)
         elif choice == "4":
