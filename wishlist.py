@@ -147,9 +147,9 @@ def wishlist_menu(library: list, wishlist: list) -> None:
 
 # Lets you run `python wishlist.py` on its own to try it out,
 # without needing main.py or anyone else's code yet.
-if __name__ == "__main__":
-    library = []
-    wishlist = []
-    wishlist_menu(library, wishlist)
-    print("\nFinal library:", library)
-    print("Final wishlist:", wishlist)
+# if __name__ == "__main__":
+#     library = []
+#     wishlist = []
+#     wishlist_menu(library, wishlist)
+#     print("\nFinal library:", library)
+#     print("Final wishlist:", wishlist)
