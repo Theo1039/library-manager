@@ -30,7 +30,7 @@ def delete_book(library):
     index = choice - 1   
         
         # Ask for confirmation
-    confirm = input(f"Are you sure you want to delete'{library[index]}'? (y/n): ")
+    confirm = input(f"Are you sure you want to delete {library[index]['title']}? (y/n): ")  #fix: correct raw dictionary string print in delete_book confirmation prompt
 
     if confirm.lower() == "y":
            library.pop(index)
@@ -39,12 +39,12 @@ def delete_book(library):
             print("Deletion cancelled.")
 
     # Example library
-library = []
+# library = []
 
     # call the function
 # delete_book(library)              # no need the call the function at this point after integration
 
     #show updated library
-print("\nUpdated Library:")
-for book in library:
-        print("_", book)
+# print("\nUpdated Library:")       # called display_book() in library_manager.py instead
+# for book in library:
+#         print("_", book)

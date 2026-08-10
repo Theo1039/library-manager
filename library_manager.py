@@ -78,6 +78,8 @@ def main():
             mark_as_read(library)
         elif choice == "5":
             delete_book(library)
+            print("\nUpdated Library:")
+            display_books(library)              # updated library is displayed
         elif choice == "6":
             show_statistics(library)
         elif choice == "7":
