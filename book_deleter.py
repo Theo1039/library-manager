@@ -10,7 +10,8 @@ def delete_book(library):
     # show all books with numbers
     print("\nBooks in the library:")
     for i in range(len(library)):
-          print(f"{i + 1}.{library[i]}")
+          book = library[i]
+          print(f"{i + 1}.{book['tittle']} by {book['author']}")
     
     # keep asking until the user enters a valid number
     while True:
