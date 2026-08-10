@@ -11,7 +11,7 @@ def delete_book(library):
     print("\nBooks in the library:")
     for i in range(len(library)):
           book = library[i]
-          print(f"{i + 1}.{book['tittle']} by {book['author']}")
+          print(f"{i + 1}.{book['title']} by {book['author']}")            #changed "tittle" to "title"
     
     # keep asking until the user enters a valid number
     while True:
@@ -42,7 +42,7 @@ def delete_book(library):
 library = []
 
     # call the function
-delete_book(library)
+# delete_book(library)              # no need the call the function at this point after integration
 
     #show updated library
 print("\nUpdated Library:")
