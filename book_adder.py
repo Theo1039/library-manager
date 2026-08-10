@@ -1,11 +1,15 @@
 
 
-# library = []
-
 def add_book(library: list):
     title = input("The name of the book is: ").strip().title()
     author = input("The author of the book is: ").strip().title()
-    year = int(input("It was produced in : "))
+    while True:
+        year = input("The year of publication is: ").strip()
+        if year.isdigit() and len(year) == 4:
+            year = int(year)
+            break
+        else:
+            print("Invalid year. Please enter a 4-digit number.")
     genre = input("Enter genre: ").strip().title()
 
     book = {
@@ -20,5 +24,3 @@ def add_book(library: list):
     library.append(book)
 
     print(f"`{title}` by `{author}` has been succesfully added")
-
-# add_book(library)
