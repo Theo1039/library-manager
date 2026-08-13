@@ -3,7 +3,7 @@ from book_adder import add_book
 from book_deleter import delete_book
 from book_marker import mark_as_read
 from csv_exporter import export_books
-from csv_importer import import_books_csv, choose_csv_files, import_books_from_files
+from csv_importer import import_books_csv
 from book_search import booksearch
 from book_statistics import show_statistics
 from wishlist import wishlist_menu
@@ -27,6 +27,9 @@ def load_library()-> tuple[list, list]:
     except FileNotFoundError:
         # if Library_file cannot be found return two empty list
         return [], []
+    except json.JSONDecodeError:
+        print("Library.json is corrupted - starting fresh.")
+        return [],[]
 
 
 def save_library(library: list, wishlist: list) -> None:
