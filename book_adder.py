@@ -8,11 +8,11 @@ def add_book(library: list):
         print("Author cannot be empty.")
     while True:
         year = input("The year of publication is: ").strip()
-        if year.isdigit() and len(year) == 4:
+        if 1000 <= year <= 2026:
             year = int(year)
             break
         else:
-            print("Invalid year. Please enter a 4-digit number.")
+            print("Please enter a year between 1000 and 2026.")
     genre = input("Enter genre: ").strip().title()
     if genre == "":
         print("Genre cannot be empty.")
