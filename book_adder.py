@@ -1,5 +1,4 @@
 
-
 def add_book(library: list):
     title = input("The name of the book is: ").strip().title()
     author = input("The author of the book is: ").strip().title()
@@ -23,4 +22,4 @@ def add_book(library: list):
 
     library.append(book)
 
-    print(f"`{title}` by `{author}` has been succesfully added")
+    print(f"`{title}` by `{author}` has been successfully added")
