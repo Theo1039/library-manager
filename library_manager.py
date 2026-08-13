@@ -53,7 +53,7 @@ def print_menu():
     print("5. Delete a Book")
     print("6. Show Statistics")
     print("7. Random Recommendation")
-    print("8. Import book books from a CSV")
+    print("8. Import book(s) from a CSV")
     print("9. Export library to CSV")
     print("10. View reading wishlist")
     print("11. Save & Exit")
