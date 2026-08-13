@@ -11,7 +11,7 @@ def delete_book(library):
     print("\nBooks in the library:")
     for i in range(len(library)):
           book = library[i]
-          print(f"{i + 1}.{book['title']} by {book['author']}")            #changed "tittle" to "title"
+          print(f"{i + 1}.{book['title']} by {book['author']}")#changed "tittle" to "title"
     
     # keep asking until the user enters a valid number
     while True:
@@ -26,10 +26,10 @@ def delete_book(library):
         except ValueError:
             print("Please enter a number only.")
 
-        # convert users number to list index
+    # convert users number to list index
     index = choice - 1   
         
-        # Ask for confirmation
+    # Ask for confirmation
     confirm = input(f"Are you sure you want to delete {library[index]['title']}? (y/n): ")  #fix: correct raw dictionary string print in delete_book confirmation prompt
 
     if confirm.lower() == "y":
@@ -38,7 +38,7 @@ def delete_book(library):
     else:
             print("Deletion cancelled.")
 
-    # Example library
+# Example library
 # library = []
 
     # call the function
