@@ -46,7 +46,7 @@ def mark_as_read(library: list):
     book_index = choice - 1
     book = library[book_index]
 
-    #6 Mark the book as read
+    # Mark the book as read
     book["read"] = True
 
     # Ask the user for a rating between 1-5 with validation
@@ -64,7 +64,7 @@ def mark_as_read(library: list):
 
     book["rating"] = rating
 
-    #8 Convert user rating input to stars
+    # Convert user rating input to stars
     stars = "★" * rating + "☆" * (5 - rating)
 
     # Success message
