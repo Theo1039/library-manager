@@ -1,4 +1,7 @@
 def booksearch(library: list) -> None:
+    if len(library) == 0:
+        print("Your library is empty! Add some books first.")
+        return
     search = input("Search book title/author: ").strip().lower()
 
     matches = []
