@@ -18,7 +18,6 @@ Data contract (must match every other module in the project):
     }
 """
 
-
 def add_to_wishlist(library: list, wishlist: list) -> None:
     """
     Ask the user for details about a book they want to read someday,
