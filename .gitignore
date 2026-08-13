@@ -2,3 +2,6 @@
 __pycache__/
 .pytest_cache/
 .mypy_cache/
+library.json
+*.pyc
+.DS_Store
