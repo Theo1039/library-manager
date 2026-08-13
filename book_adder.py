@@ -3,9 +3,11 @@ def add_book(library: list):
     title = input("The name of the book is: ").strip().title()
     if title == "":
         print("Title cannot be empty.")
+        return
     author = input("The author of the book is: ").strip().title()
     if author == "":
         print("Author cannot be empty.")
+        return
     while True:
         year_input = input("The year of publication is: ").strip()
         try:
@@ -20,6 +22,7 @@ def add_book(library: list):
     genre = input("Enter genre: ").strip().title()
     if genre == "":
         print("Genre cannot be empty.")
+        return
 
     book = {
         "title": title,
