@@ -10,16 +10,14 @@ from wishlist import wishlist_menu
 from recommendation import random_recommendation
 from book_display import display_books
 
-Library_file = "library.json" # this acts as storage for library data (library and wishlist)
+LIBRARY_FILE = "library.json" # this acts as storage for library data (library and wishlist)
 
 
 def load_library()-> tuple[list, list]:
     """Load the library from a JSON file. Return empty list if file doesn't exist."""
-    # TODO: Use try/except to open LIBRARY_FILE and return json.load(file)
-    # If FileNotFoundError, return []
 
     try:
-        with open(Library_file, "r") as file:
+        with open(LIBRARY_FILE, "r") as file:
             data = json.load(file)
             #Assuming we saved them as a dictionary containing both lists (library and wishlist)
             return data.get("library", []), data.get("wishlist", [])
@@ -34,13 +32,12 @@ def load_library()-> tuple[list, list]:
 
 def save_library(library: list, wishlist: list) -> None:
     """Save the library list to a JSON file."""
-    # TODO: Open LIBRARY_FILE in 'w' mode and use json.dump(library, file, indent=2)
     save_data = {
         "library": library,
         "wishlist": wishlist
     }
     
-    with open(Library_file, "w") as file:
+    with open(LIBRARY_FILE, "w") as file:
         #json.dump saves the current state of the library and wishlist to library_file
         json.dump(save_data, file, indent=4)
 
