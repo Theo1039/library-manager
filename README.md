@@ -1,37 +1,29 @@
-# 📚 Personal Library Manager
-
-A collaborative command-line (CLI) application for managing your personal book collection — built by a group of 11 Python beginners as a learning project under the **Learn2Earn** fellowship.
+📚 Personal Library Manager
+A collaborative command-line (CLI) application for managing your personal book collection — built by a group of 11 Python beginners as a learning project under the Learn2Earn fellowship.
 
 You can add books, view your collection, search, mark books as read with a star rating, delete books, see fun statistics, get a random recommendation from your unread pile, maintain a separate wishlist, import/export via CSV, and save your library so it's still there when you re-open the app.
 
----
+✨ Features
+#	Feature	Description
+1	Add a Book	Enter title, author, 4-digit publication year (validated), and genre. Empty inputs are rejected.
+2	View All Books	Formatted numbered list with genre, read/unread status, and ★ star rating. Pluralizes "book/books" correctly.
+3	Search Books	Case-insensitive search across both titles and authors.
+4	Mark as Read	Pick a book from a numbered list, mark it read, rate it 1–5 stars (★). Invalid input is rejected gracefully.
+5	Delete a Book	Delete with a y/n confirmation prompt; the updated library is displayed afterwards.
+6	Statistics	Total books, % read, average rating of rated books, books-per-genre breakdown, highest/lowest rated, oldest/newest.
+7	Random Recommendation	Picks a random unread book when you don't know what to read next.
+8	Import from CSV	Bulk-import books from a CSV file using a graphical file picker (with manual path fallback). Detects duplicates by title+author.
+9	Export to CSV	Export your entire library to a CSV file openable in Excel / Google Sheets. Uses Python's csv.writer for correct escaping.
+10	Wishlist	Maintain a separate list of books you want to read; move them to your main library when you get a copy.
+11	Save & Exit	Saves both your library and wishlist to library.json (handles corrupted JSON by starting fresh).
+🚀 How to Run
+Prerequisites
+Python 3.10 or higher (download)
+Tkinter (ships with Python on Windows/macOS; the CSV importer falls back to manual path entry on Linux systems without it)
+No pip install needed — everything uses the standard library.
+Steps
+Bash
 
-## ✨ Features
-
-| # | Feature | Description |
-|---|---|---|
-| 1 | **Add a Book** | Enter title, author, 4-digit publication year, and genre. Year is validated before accepting. |
-| 2 | **View All Books** | Nicely formatted numbered list with genre, read/unread status, and star rating. |
-| 3 | **Search Books** | Case-insensitive search across titles and authors. |
-| 4 | **Mark as Read** | Pick a book from a numbered list, mark it read, and rate it 1–5 stars (★). |
-| 5 | **Delete a Book** | Delete with a confirmation prompt; updated library is shown afterwards. |
-| 6 | **Statistics** | Total books, % read, average rating, books per genre, highest/lowest rated, oldest/newest. |
-| 7 | **Random Recommendation** | Picks a random unread book for you to read next. |
-| 8 | **Import from CSV** | Bulk-import books from a CSV file using a graphical file picker (with duplicate detection). |
-| 9 | **Export to CSV** | Export your entire library to a CSV file you can open in Excel / Google Sheets. |
-| 10 | **Wishlist** | Maintain a separate list of books you want to read later; move them to your main library when you get a copy. |
-| 11 | **Save & Exit** | Saves both your library and wishlist to `library.json` so everything persists between sessions. |
-
----
-
-## 🚀 How to Run
-
-### Prerequisites
-- Python 3.10 or higher ([download](https://www.python.org/downloads/))
-- No extra installation needed — the only non-stdlib feature used (Tkinter file picker for CSV import) ships with Python by default on Windows/macOS and falls back to manual path entry on Linux systems without Tk.
-
-### Steps
-```bash
 # 1. Clone the repository
 git clone https://github.com/Theo1039/library-manager.git
 
@@ -43,16 +35,13 @@ git checkout develop
 
 # 4. Run the app
 python library_manager.py
-```
-> Use `python3` instead of `python` on Linux/macOS if your system defaults to Python 2.
+Use python3 instead of python on Linux/macOS if your system defaults to Python 2.
 
-When you first run it, the app will create a `library.json` file in the same folder to store your books.
+The app will create library.json the first time you save.
 
----
+📁 Project Structure
+text
 
-## 📁 Project Structure
-
-```
 library-manager/
 ├── library_manager.py    # Main entry point — menu loop & module integration (Role 11)
 ├── book_adder.py         # Role 1  — Add books
@@ -65,59 +54,45 @@ library-manager/
 ├── csv_importer.py       # Role 8  — Bulk import from CSV (with GUI file picker)
 ├── csv_exporter.py       # Role 9  — Export library to CSV
 ├── wishlist.py           # Role 10 — Reading wishlist
-└── library.json          # (auto-created) saved data
-```
+└── library.json          # (auto-created) saved library/wishlist data
+Architecture: Each feature lives in its own file exposing one main function. library_manager.py imports all modules and wires the 11 menu options to the right function. This split let 11 people work in parallel without overwriting each other's code.
 
-**Architecture:** Each feature lives in its own file and exposes one main function. `library_manager.py` imports every module and wires the 11 menu options to the right function. This split let 11 people work in parallel without stepping on each other's code.
+👥 Team & Contributors
+This project was built by 11 Learn2Earn fellows splitting the work by role, with collective bug fixes during integration week:
 
----
+Role	Feature	Contributor
+1 — Book Adder	Add books with year/empty-input validation	Snrboi
+2 — Book Displayer	Formatted book list with stars and alignment	Aguimmanuel
+3 — Search	Case-insensitive title/author search	Piondy
+4 — Read Tracker	Mark-as-read + 1–5 star rating	Aguimmanuel
+5 — Book Deleter	Delete with confirmation + updated view	favourawo
+6 — Statistician	Stats dashboard (genres, averages, extremes)	ntongho
+7 — Recommender	Random unread-book suggestion	rcollins
+8 — CSV Importer	GUI file picker, duplicate detection, encoding handling	okwedavid
+9 — CSV Exporter	Export to properly-formatted CSV	Chebemeze
+10 — Wishlist Keeper	Separate wishlist + move-to-library	Skynkem123
+11 — Integrator / Lead	library_manager.py main loop, JSON persistence, wiring	Theo1039
+Repository: Theo1039/library-manager
+Active branch: develop
 
-## 👥 Team & Contributors
-
-This project was built by 11 fellows splitting the work by role, plus a few extra bug-fix contributions during integration:
-
-| Role | Feature | Contributor |
-|---|---|---|
-| 1 — Book Adder | Add books with input validation | [Snrboi](https://github.com/Snrboi) |
-| 2 — Book Displayer | Formatted book list with stars | [Aguimmanuel](https://github.com/Aguimmanuel) |
-| 3 — Search | Case-insensitive title/author search | [Piondy](https://github.com/Piondy) |
-| 4 — Read Tracker | Mark-as-read + 1–5 star rating | [Aguimmanuel](https://github.com/Aguimmanuel) |
-| 5 — Book Deleter | Delete with confirmation | [favourawo](https://github.com/favourawo) |
-| 6 — Statistician | Stats dashboard (genre breakdown, averages, extremes) | [ntongho](https://github.com/ntongho) |
-| 7 — Recommender | Random unread-book suggestion | rcollins |
-| 8 — CSV Importer | GUI file picker, duplicate detection, error handling | [okwedavid](https://github.com/okwedavid) |
-| 9 — CSV Exporter | Export library to CSV | [Chebemeze](https://github.com/Chebemeze) |
-| 10 — Wishlist Keeper | Separate wishlist + move-to-library | [Skynkem123](https://github.com/Skynkem123) |
-| 11 — Integrator / Lead | `library_manager.py` main loop, JSON save/load, wiring it all together | [Theo1039](https://github.com/Theo1039) |
-
-Special thanks to everyone who jumped in with last-minute bug fixes during integration.
-
-Repository: [Theo1039/library-manager](https://github.com/Theo1039/library-manager) (active branch: [`develop`](https://github.com/Theo1039/library-manager/tree/develop))
-
----
-
-## 🧠 Python Concepts We Learned
-
+🧠 Python Concepts We Learned
 By building this project we got hands-on practice with:
 
-- **Data structures:** Lists (`[]`) for collections, dictionaries (`{}`) for book records
-- **Control flow:** `for` loops, `while` loops, `if/elif/else`, `break`, `continue`
-- **Functions:** `def`, parameters, return values, docstrings, type hints
-- **String handling:** f-strings, `.strip()`, `.title()`, `.lower()`, `.join()`, `.split()`
-- **User I/O:** `input()`, `print()`, formatting aligned columns
-- **Error handling:** `try/except` for `ValueError` and `FileNotFoundError`
-- **File I/O:** Opening/reading/writing files with `with open(...)`, JSON persistence via `json.dump` / `json.load`, CSV via the `csv` module
-- **Modules & imports:** Splitting code across multiple files and importing them
-- **The standard library:** `random.choice()`, `pathlib.Path`, `tkinter` (file dialog), `csv`
-- **Collaboration:** Git branches, pull requests, merge conflicts, and agreeing on a shared data contract before writing code
+Data structures: Lists ([]) for collections, dictionaries ({}) for book records
+Control flow: for loops, while loops, if/elif/else, break, continue
+Functions: def, parameters, return values, docstrings, type hints
+String handling: f-strings, .strip(), .title(), .lower(), .join(), .split(), format specifiers (:.2f, :,)
+User I/O: input(), print(), formatted aligned columns
+Error handling: try/except for ValueError, FileNotFoundError, json.JSONDecodeError
+File I/O: with open(...), JSON persistence via json.dump / json.load, CSV via the built-in csv module
+Modules & imports: Splitting code across multiple files and importing them
+Standard library: random.choice(), pathlib.Path, tkinter (file dialog), csv.reader/csv.writer
+Collaboration: Git branches, pull requests, merge conflicts, agreeing on a shared data contract
+📜 The Data Contract
+Every module agrees on a single book format — the "data contract." If one module had used 'name' for title and another 'title', the app would have broken on integration day. All modules use this exact dictionary shape:
 
----
+Python
 
-## 📜 The Data Contract
-
-Every module agrees on a single book format — we called this the "data contract." If one person's module used `'name'` for title and another used `'title'`, the app would break on integration day. So we all committed to this exact dictionary shape:
-
-```python
 book = {
     "title":  "The Great Gatsby",   # str
     "author": "F. Scott Fitzgerald",# str
@@ -128,35 +103,42 @@ book = {
 }
 
 library  = []   # list of book dicts (owned books)
-wishlist = []   # list of book dicts (books to read later, same shape)
-```
+wishlist = []   # list of book dicts (want-to-read books, same shape)
+🐛 Known Issues (pre-main checklist)
+The app is fully functional — you can add, view, search, mark-read, delete, get stats, import/export, and use the wishlist without crashes on normal input. A fresh end-to-end audit (commit 54357c6) found the items below. Sorted roughly by severity. If you pick one up, tick the box and open a PR against develop.
 
----
+🔴 Fix before merge (crashes / data loss)
+ library_manager.py — load_library() crashes on old-format library.json.
+If library.json exists but was saved by an earlier version that stored the library as a plain list (instead of {"library": [...], "wishlist": [...]}), data.get(...) on a list raises AttributeError and the app won't start. Also, if the "library" key is null, the function returns None instead of [], which crashes downstream. Add an isinstance(data, dict) guard and fall back to [] when a key is missing or null.
+ csv_importer.py — Importing an exported CSV wipes read status & ratings.
+csv_exporter.py writes 6 columns (title,author,year,genre,read,rating) but the importer only reads the first 4 and hardcodes read=False, rating=0 for every imported book. That means if a user exports their library and re-imports it (or shares their CSV with a friend who imports it), all reading progress and star ratings are reset to zero. Fix: detect the read/rating columns (when present) and use them; default to False/0 only when they're absent.
+ csv_importer.py — No year range validation.
+book_adder.py and wishlist.py both reject years outside 1000–2026, but the importer accepts any integer (-5, 3000, 999999) and then statistics will happily report it as "oldest" or "newest" book. Add the same 1000 ≤ year ≤ current-year check the other modules use.
+🟡 Fix before merge (wrong / inconsistent behavior)
+ wishlist.py — add_to_wishlist accepts blank author and blank genre.
+book_adder.py rejects empty title/author/genre with a message and re-prompts. The wishlist only validates title, so pressing Enter on author/genre adds a book with "" for those fields. Copy the same while-loop validation pattern book_adder.py uses.
+ book_marker.py — Re-marking an already-read book silently overwrites the rating.
+If a book is already read=True and the user picks it again, the module sets read=True (already true) and forces a new rating, replacing the old one with no warning. Should either skip (with a message "Already read — update rating? (y/n)") or at least tell the user they're changing an existing rating.
+ book_deleter.py — Confirmation only accepts exactly y/Y.
+Typing yes, yeah, or y (with a trailing space) cancels the deletion instead of confirming. Accept any input whose .strip().lower() starts with y (e.g. y, Y, yes, YES).
+ book_statistics.py — "Lowest rated" and average rating include 0-star (unrated) books.
+When a book is marked read but hasn't been given stars yet (rating=0), min() picks it as "lowest rated" and the average gets dragged down by the zero. Filter read_books to rating > 0 before computing highest/lowest/average. If no books have ratings yet, show "No rated books yet" (already handled correctly for average — extend it to highest/lowest too).
+🟢 Polish / UX (nice to have)
+ book_search.py — Hitting Enter with an empty search shows every book.
+Because "" in "any string" is always True in Python, a blank search matches the whole library. Ask the user to type something, or treat empty as cancel.
+ Inconsistent empty-library messages. Most modules print "📭 Your library is empty! Add some books first." but book_deleter.py prints plain "There are no books to delete." and book_search.py prints "Your library is empty! Add some books first." (no emoji). Match the 📭 wording everywhere for a consistent feel.
+ Hardcoded year 2026 in book_adder.py and wishlist.py. Replace with datetime.date.today().year so the app doesn't need a code change on January 1st.
+ book_adder.py — Success message uses backticks (`title` by `author` has been successfully added). Plain quotes or no quotes look cleaner in a terminal.
+ recommendation.py — Indentation is inconsistent (mix of 2- and 6-space indents under if not unread_books:) and one line has an extra leading space before the title. Doesn't break anything but is hard to read.
+ book_display.py — Columns shift on long genre/author names. The format string uses fixed widths (:15s for genre, :16s for status), so genres longer than 15 characters push the rating column right. Consider using tabs or just a single space between sections instead of fixed-width padding.
+ .title() capitalization quirk. Names entered as "CJ Archer" or "tim o'brien" get transformed by Python's .title() into "Cj Archer" and "Tim O'Brien" (the second one is fine; the first looks odd). Low priority — affects add_book and wishlist manual entry.
+✅ Already fixed since the last audit
+Empty title/author/genre in book_adder.py now re-prompt (while loop + continue) instead of returning to menu.
+Year bug in book_adder.py (multiple commits).
+book_deleter.py stray test call removed; confirmation prompt clean.
+.gitignore added (ignores __pycache__/, *.pyc, etc.).
+Book display wired to show after delete in the main menu.
+🎉 Acknowledgements
+Big thanks to the Learn2Earn fellowship coordinators for the structure and push, and to every teammate who researched a concept, wrote a module, debugged an edge case, or sat through a merge-conflict session on Integration Day. This is our first real Python app, built from scratch together.
 
-## 🐛 Known Issues & Final Touches (to-do before merging to main)
-
-A few small things that could still be polished — good first fixes for anyone reading this after the project:
-
-- [ ] **Menu typo:** Option 8 currently says *"Import book books from a CSV"* — should be *"Import books from a CSV"*.
-- [ ] **Success-message typo in `book_adder.py`:** *"succesfully added"* → *"successfully added"*.
-- [ ] **Punctuation in `book_search.py`:** The "no matches" message has a stray apostrophe: `"try another word.'"` → `"try another word."`
-- [ ] **Empty-library bug in `recommendation.py`:** When the library has zero books it prints *"HURRAY!!! You have read all the books"* — it should first check for an empty library and print a different message.
-- [ ] **CSV export doesn't escape commas:** In `csv_exporter.py`, if a book title or author contains a comma (e.g. `"The Road, Part 1"`), the CSV output will break columns. Using Python's built-in `csv.writer` (the same way `csv_importer.py` uses `csv.reader`) would fix it cleanly.
-- [ ] **`book_deleter.py` indentation:** A few lines have inconsistent extra spacing (still runs, but is hard to read). Clean up the comments and leftover commented-out test code at the bottom.
-- [ ] **Minor comment typo:** `book_marker.py` line 1 says `#1` instead of `#` and the docstring says *"Let's the user"* — should be *"Lets the user"*.
-- [ ] **Add a `.gitignore`:** The `__pycache__/` folder and `library.json` (personal user data) shouldn't be committed to the repo. A `.gitignore` with at least:
-  ```
-  __pycache__/
-  *.pyc
-  library.json
-  .env
-  ```
-  would clean that up.
-
----
-
-## 🎉 Acknowledgements
-
-Big thanks to the Learn2Earn fellowship coordinators for the push, and to every team member who researched a concept, wrote a module, debugged an edge case, or sat through a merge-conflict session on Integration Day. This is our first real Python app, built from scratch together.
-
-*Built with 🐍 by beginners, for beginners.*
+Built with Python by beginners, for beginners.
