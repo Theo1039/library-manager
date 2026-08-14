@@ -1,13 +1,19 @@
-
+# library = []
 def add_book(library: list):
-    title = input("The name of the book is: ").strip().title()
-    if title == "":
-        print("Title cannot be empty.")
-        return
-    author = input("The author of the book is: ").strip().title()
-    if author == "":
-        print("Author cannot be empty.")
-        return
+    while True:
+        title = input("The name of the book is: ").strip().title()
+        if not title:
+            print("Title cannot be empty.")
+            continue
+        else:
+            break
+    while True:
+        author = input("The author of the book is: ").strip().title()
+        if not author:
+            print("Author cannot be empty.")
+            continue
+        else:
+            break
     while True:
         year_input = input("The year of publication is: ").strip()
         try:
@@ -19,10 +25,13 @@ def add_book(library: list):
             break
         else:
             print("Please enter a year between 1000 and 2026")
-    genre = input("Enter genre: ").strip().title()
-    if genre == "":
-        print("Genre cannot be empty.")
-        return
+    while True:
+        genre = input("Enter genre: ").strip().title()
+        if not genre:
+            print("Genre cannot be empty.")
+            continue
+        else:
+            break                            
 
     book = {
         "title": title,
@@ -36,3 +45,6 @@ def add_book(library: list):
     library.append(book)
 
     print(f"`{title}` by `{author}` has been successfully added")
+
+
+# add_book(library)    
