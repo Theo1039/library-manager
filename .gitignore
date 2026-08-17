@@ -5,3 +5,4 @@ __pycache__/
 library.json
 *.pyc
 .DS_Store
+_test_run
