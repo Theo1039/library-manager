@@ -3,10 +3,12 @@ def booksearch(library: list) -> None:
         print("Your library is empty! Add some books first.")
         return
     search = input("Search book title/author: ").strip().lower()
-
+    if not search:
+        print("Enter a search tearm.")
+        return
     matches = []
     for book in library:
-        if search in book['title'].lower() or search in book['author'].lower():
+        if search in book.get('title', '').lower() or search in book.get('author', '').lower():
             matches.append(book)
     if not matches:
         print(f"No matches found for '{search}', try another word.")
