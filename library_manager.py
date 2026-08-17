@@ -20,7 +20,6 @@ def load_library()-> tuple[list, list]:
         with open(LIBRARY_FILE, "r") as file:
             data = json.load(file)
             #Assuming we saved them as a dictionary containing both lists (library and wishlist)
-            return data.get("library", []), data.get("wishlist", [])
             #get used here search for the "library" key and also "wishlist" key, if not found it returns an empty list []
     except FileNotFoundError:
         # if Library_file cannot be found return two empty list
@@ -28,6 +27,24 @@ def load_library()-> tuple[list, list]:
     except json.JSONDecodeError:
         print("Library.json is corrupted - starting fresh.")
         return [],[]
+
+    # Old format (before wishlist existed): file was just a plain list of books
+    if isinstance(data, list):
+        return data, []
+
+    #Normal format: {"library": [...], "wishlist": [...]}
+    #Guard against null / missing keys by using 'or []'
+    library = data.get("library") or []
+    wishlist = data.get("wishlist") or []
+
+    #Extra safety: if a key is present but is not a list (corruption),
+    #don't let it crash downstream - start fresh for that list.
+    if not isinstance(library, list):
+        library = []
+    if not isinstance(wishlist, list):
+        wishlist = []
+
+    return library, wishlist
 
 
 def save_library(library: list, wishlist: list) -> None:
