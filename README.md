@@ -1,6 +1,6 @@
 # 📚 Personal Library Manager
 
-A collaborative command-line (CLI) application for managing your personal book collection — built by a group of 11 Python beginners as a learning project under the **Learn2Earn** fellowship.
+A collaborative command-line (CLI) application for managing your personal book collection — built by a group of 10 Python beginners as a learning project under the **Learn2Earn** fellowship.
 
 You can add books, view your collection, search, mark books as read with a star rating, delete books, see fun statistics, get a random recommendation from your unread pile, maintain a separate wishlist, import/export via CSV, and save your library so it's still there when you re-open the app.
 
@@ -39,10 +39,7 @@ git clone https://github.com/Theo1039/library-manager.git
 # 2. Move into the project folder
 cd library-manager
 
-# 3. Switch to the develop branch (where all current work lives)
-git checkout develop
-
-# 4. Run the app
+# 3. Run the app
 python library_manager.py
 ```
 > Use `python3` instead of `python` on Linux/macOS if your system defaults to Python 2.
@@ -75,7 +72,7 @@ library-manager/
 
 ## 👥 Team & Contributors
 
-This project was built by 11 Learn2Earn fellows splitting the work by role, with collective bug fixes during integration week:
+This project was built by 10 Learn2Earn fellows splitting the work by role, with collective bug fixes during integration week:
 
 | Role | Feature | Contributor |
 |---|---|---|
@@ -88,11 +85,10 @@ This project was built by 11 Learn2Earn fellows splitting the work by role, with
 | 7 — Recommender | Random unread-book suggestion | rcollins |
 | 8 — CSV Importer | GUI file picker, duplicate detection, encoding handling | [okwedavid](https://github.com/okwedavid) |
 | 9 — CSV Exporter | Export to properly-formatted CSV | [Chebemeze](https://github.com/Chebemeze) |
-| 10 — Wishlist Keeper | Separate wishlist + move-to-library | [Skynkem123](https://github.com/Skynkem123) |
+| 10 — Wishlist Keeper | Separate wishlist + move-to-library | [Skynkem123](https://github.com/youngbeckdoracle) |
 | 11 — Integrator / Lead | `library_manager.py` main loop, JSON persistence, wiring | [Theo1039](https://github.com/Theo1039) |
 
 Repository: [Theo1039/library-manager](https://github.com/Theo1039/library-manager)
-Active branch: [`develop`](https://github.com/Theo1039/library-manager/tree/develop)
 
 ---
 
@@ -133,48 +129,31 @@ wishlist = []   # list of book dicts (want-to-read books, same shape)
 
 ---
 
-## 🐛 Known Issues (pre-main checklist)
+## 🐛 Known Limitations & Future Improvements
 
-The app is fully functional — you can add, view, search, mark-read, delete, get stats, import/export, and use the wishlist without crashes on normal input. A fresh end-to-end audit (commit `54357c6`) found the items below. Sorted roughly by severity. If you pick one up, tick the box and open a PR against `develop`.
+The app is fully functional for v1. A few polish items and small UX
+improvements remain open for future pull requests:
 
-### 🔴 Fix before merge (crashes / data loss)
-
-- [ ] **library_manager.py — `load_library()` crashes on old-format `library.json`.**
-  If `library.json` exists but was saved by an earlier version that stored the library as a plain list (instead of `{"library": [...], "wishlist": [...]}`), `data.get(...)` on a list raises `AttributeError` and the app won't start. Also, if the `"library"` key is `null`, the function returns `None` instead of `[]`, which crashes downstream. Add an `isinstance(data, dict)` guard and fall back to `[]` when a key is missing or null.
-- [ ] **csv_importer.py — Importing an exported CSV wipes read status & ratings.**
-  `csv_exporter.py` writes 6 columns (`title,author,year,genre,read,rating`) but the importer only reads the first 4 and hardcodes `read=False, rating=0` for every imported book. That means if a user exports their library and re-imports it (or shares their CSV with a friend who imports it), **all reading progress and star ratings are reset to zero**. Fix: detect the `read`/`rating` columns (when present) and use them; default to `False/0` only when they're absent.
-- [ ] **csv_importer.py — No year range validation.**
-  `book_adder.py` and `wishlist.py` both reject years outside 1000–2026, but the importer accepts *any* integer (`-5`, `3000`, `999999`) and then statistics will happily report it as "oldest" or "newest" book. Add the same 1000 ≤ year ≤ current-year check the other modules use.
-
-### 🟡 Fix before merge (wrong / inconsistent behavior)
-
-- [ ] **wishlist.py — `add_to_wishlist` accepts blank author and blank genre.**
-  `book_adder.py` rejects empty title/author/genre with a message and re-prompts. The wishlist only validates title, so pressing Enter on author/genre adds a book with `""` for those fields. Copy the same while-loop validation pattern `book_adder.py` uses.
-- [ ] **book_marker.py — Re-marking an already-read book silently overwrites the rating.**
-  If a book is already `read=True` and the user picks it again, the module sets `read=True` (already true) and forces a new rating, replacing the old one with no warning. Should either skip (with a message "Already read — update rating? (y/n)") or at least tell the user they're changing an existing rating.
-- [ ] **book_deleter.py — Confirmation only accepts exactly `y`/`Y`.**
-  Typing `yes`, `yeah`, or `y ` (with a trailing space) cancels the deletion instead of confirming. Accept any input whose `.strip().lower()` starts with `y` (e.g. `y`, `Y`, `yes`, `YES`).
-- [ ] **book_statistics.py — "Lowest rated" and average rating include 0-star (unrated) books.**
-  When a book is marked read but hasn't been given stars yet (rating=0), `min()` picks it as "lowest rated" and the average gets dragged down by the zero. Filter `read_books` to `rating > 0` before computing highest/lowest/average. If no books have ratings yet, show "No rated books yet" (already handled correctly for average — extend it to highest/lowest too).
-
-### 🟢 Polish / UX (nice to have)
-
-- [ ] **book_search.py — Hitting Enter with an empty search shows every book.**
-  Because `"" in "any string"` is always `True` in Python, a blank search matches the whole library. Ask the user to type something, or treat empty as cancel.
-- [ ] **Inconsistent empty-library messages.** Most modules print `"📭 Your library is empty! Add some books first."` but `book_deleter.py` prints plain `"There are no books to delete."` and `book_search.py` prints `"Your library is empty! Add some books first."` (no emoji). Match the 📭 wording everywhere for a consistent feel.
-- [ ] **Hardcoded year `2026`** in `book_adder.py` and `wishlist.py`. Replace with `datetime.date.today().year` so the app doesn't need a code change on January 1st.
-- [ ] **book_adder.py — Success message uses backticks** (`` `title` by `author` has been successfully added ``). Plain quotes or no quotes look cleaner in a terminal.
-- [ ] **recommendation.py — Indentation is inconsistent** (mix of 2- and 6-space indents under `if not unread_books:`) and one line has an extra leading space before the title. Doesn't break anything but is hard to read.
-- [ ] **book_display.py — Columns shift on long genre/author names.** The format string uses fixed widths (`:15s` for genre, `:16s` for status), so genres longer than 15 characters push the rating column right. Consider using tabs or just a single space between sections instead of fixed-width padding.
-- [ ] **`.title()` capitalization quirk.** Names entered as `"CJ Archer"` or `"tim o'brien"` get transformed by Python's `.title()` into `"Cj Archer"` and `"Tim O'Brien"` (the second one is fine; the first looks odd). Low priority — affects add_book and wishlist manual entry.
-
-### ✅ Already fixed since the last audit
-
-- Empty title/author/genre in `book_adder.py` now re-prompt (while loop + `continue`) instead of returning to menu.
-- Year bug in `book_adder.py` (multiple commits).
-- `book_deleter.py` stray test call removed; confirmation prompt clean.
-- `.gitignore` added (ignores `__pycache__/`, `*.pyc`, etc.).
-- Book display wired to show after delete in the main menu.
+- **book_marker.py:** Re-marking an already-read book overwrites its rating
+  without an "update existing rating?" confirmation prompt.
+- **book_deleter.py:** The confirmation prompt only accepts exactly `y`/`Y`.
+  Typing `yes` cancels instead of confirming.
+- **book_statistics.py:** "Highest rated" / "Lowest rated" and the average
+  rating currently include read-but-unrated books (rating = 0), which drags
+  the average down and can surface an unrated book as "lowest rated."
+- **csv_importer.py:** Imports do not enforce the 1000–current-year range
+  that the manual "Add a Book" flow enforces, so out-of-range years can slip
+  through bulk imports.
+- **wishlist.py:** Author and genre are not validated on input (pressing
+  Enter stores them as blank strings), unlike the main "Add a Book" flow.
+- **Inconsistent empty-state messages:** A couple of modules use plain
+  wording while the rest use the 📭 emoji.
+- **Year 2026** is hardcoded in `book_adder.py` and `wishlist.py`; using
+  `datetime.date.today().year` would remove the need for a future patch.
+- **`.title()` capitalization** can mangle names like "CJ Archer" →
+  "Cj Archer". Low priority.
+- **`book_display.py`** uses fixed-width columns (`:15s`, `:16s`), so long
+  genre or author names push the rating column out of alignment.
 
 ---
 
